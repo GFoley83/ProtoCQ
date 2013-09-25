@@ -10,12 +10,12 @@ namespace Proto.Domain.QueryHandlers
         IQueryHandler<GetTenantsQuery, Tenant[]>
     {
         //public IDbContext<ClientManagementContext> Context { get; private set; }
-        ClientManagementContext Context { get; set; }
+        private ClientManagementContext context;
  
         public TenantQueryHandlers
-            (IClientManagementContext context)
+            (ClientManagementContext context)
         {
-            Context = context as ClientManagementContext;
+            this.context = context;
         }
 
 
@@ -32,12 +32,12 @@ namespace Proto.Domain.QueryHandlers
         //}
         public Tenant Handle(GetTenantByIdQuery query)
         {
-            return Context.Tenants.Find(query);
+            return context.Tenants.Find(query);
         }
 
         public Tenant[] Handle(GetTenantsQuery query)
         {
-            return Context.Tenants.ToArray();
+            return context.Tenants.ToArray();
         }
 
     }
