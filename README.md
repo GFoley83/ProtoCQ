@@ -1,4 +1,4 @@
-CQProto
+ProtoCQ
 =======
 This project is an example of a variant on the Command and Query Responsibility Segregation pattern (with data returns).
 
