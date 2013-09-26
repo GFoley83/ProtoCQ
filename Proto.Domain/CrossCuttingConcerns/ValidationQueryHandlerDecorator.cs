@@ -1,8 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using Proto.Domain.QueryHandlers;
+using SimpleInjector;
 
 namespace Proto.Domain.CrossCuttingConcerns
 {
