@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Reflection;
-using Proto.Domain.QueryHandlers;
+using System.Web.Mvc;
 using SimpleInjector;
 using SimpleInjector.Extensions;
+using SimpleInjector.Integration.Web.Mvc;
+using Proto.Domain.QueryHandlers;
 
 namespace Proto.WebApi.CompositionRoot
 {
@@ -29,6 +31,9 @@ namespace Proto.WebApi.CompositionRoot
             RegisterWcfSpecificDependencies();
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+
+            DependencyResolver.SetResolver(
+                new SimpleInjectorDependencyResolver(container));
 
             container.Verify();
         }
