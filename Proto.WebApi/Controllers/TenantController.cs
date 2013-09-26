@@ -9,15 +9,11 @@ using Proto.Model.Entities;
 
 namespace Proto.WebApi.Controllers
 {
-    [RoutePrefix("api/tenants")]
+    [RoutePrefix("api/tenant")]
     public class TenantController : ApiController
     {
         IQueryHandler<GetTenantByIdQuery, Tenant> getTenant;
         IQueryHandler<GetTenantsQuery, IEnumerable<Tenant>> getTenants;
-
-        public TenantController()
-        {
-        }
 
         public TenantController(
             IQueryHandler<GetTenantByIdQuery, Tenant> getTenant,

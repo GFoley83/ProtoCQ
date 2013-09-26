@@ -45,10 +45,10 @@ namespace Proto.WebApi.CompositionRoot
     {
         public static void Bootstrap(Container container)
         {
-            if (container == null)
-            {
-                throw new ArgumentNullException("container");
-            }
+            //if (container == null)
+            //{
+            //    throw new ArgumentNullException("container");
+            //}
 
             //container.RegisterSingle<IValidator>(new DataAnnotationsValidator(container));
 
