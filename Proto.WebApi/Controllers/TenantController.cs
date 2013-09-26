@@ -1,11 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using Proto.Domain.QueryHandlers;
 
 namespace Proto.WebApi.Controllers
 {
     [RoutePrefix("api/tenants")]
     public class TenantController : ApiController
     {
+
+        public TenantController(IQueryHandler<FindUsersBySearchTextQuery, IQueryable<UserInfo>> findUsers,
+        IQueryHandler<GetUsersByRolesQuery, IEnumerable<User>> getUsers,
+        IQueryHandler<GetHighUsageUsersQuery, IEnumerable<UserInfo>> getHighUsage)
+        {
+            
+        }
+
         // GET api/<controller>
         [HttpGet(RouteName = "GetTenant")]
         public IEnumerable<string> Get()

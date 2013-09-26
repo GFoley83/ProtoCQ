@@ -9,9 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.Model", "Proto.Model\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.Domain", "Proto.Domain\Proto.Domain.csproj", "{06307A67-DCF5-4E7E-9353-A5FE10E4D9C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.Web", "Proto.Web\Proto.Web.csproj", "{EE86C0CB-EA0F-465E-A8BA-6E82613EC6CC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.WebApi", "Proto.WebApi\Proto.WebApi.csproj", "{02D7D943-9AE7-4776-B042-4FD7D8CDA660}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{60F31045-2885-4EC1-B327-CD2F51794A4F}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.Spa", "Proto.Spa\Proto.Spa.csproj", "{9D898548-E44E-44D2-9525-A6F1C686B852}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +38,14 @@ Global
 		{06307A67-DCF5-4E7E-9353-A5FE10E4D9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06307A67-DCF5-4E7E-9353-A5FE10E4D9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06307A67-DCF5-4E7E-9353-A5FE10E4D9C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE86C0CB-EA0F-465E-A8BA-6E82613EC6CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE86C0CB-EA0F-465E-A8BA-6E82613EC6CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE86C0CB-EA0F-465E-A8BA-6E82613EC6CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE86C0CB-EA0F-465E-A8BA-6E82613EC6CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02D7D943-9AE7-4776-B042-4FD7D8CDA660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02D7D943-9AE7-4776-B042-4FD7D8CDA660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D7D943-9AE7-4776-B042-4FD7D8CDA660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02D7D943-9AE7-4776-B042-4FD7D8CDA660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D898548-E44E-44D2-9525-A6F1C686B852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D898548-E44E-44D2-9525-A6F1C686B852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D898548-E44E-44D2-9525-A6F1C686B852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D898548-E44E-44D2-9525-A6F1C686B852}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
