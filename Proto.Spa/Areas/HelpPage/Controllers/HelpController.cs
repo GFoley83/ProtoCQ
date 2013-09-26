@@ -11,14 +11,15 @@ namespace Proto.Spa.Areas.HelpPage.Controllers
     public class HelpController : Controller
     {
         public HelpController()
-            : this(GlobalConfiguration.Configuration)
+            //: this(GlobalConfiguration.Configuration)
         {
+            Configuration = GlobalConfiguration.Configuration;
         }
 
-        public HelpController(HttpConfiguration config)
-        {
-            Configuration = config;
-        }
+        //public HelpController(HttpConfiguration config)
+        //{
+        //    Configuration = config;
+        //}
 
         public HttpConfiguration Configuration { get; private set; }
 

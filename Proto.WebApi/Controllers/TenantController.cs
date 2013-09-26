@@ -15,6 +15,10 @@ namespace Proto.WebApi.Controllers
         IQueryHandler<GetTenantByIdQuery, Tenant> getTenant;
         IQueryHandler<GetTenantsQuery, IEnumerable<Tenant>> getTenants;
 
+        public TenantController()
+        {
+        }
+
         public TenantController(
             IQueryHandler<GetTenantByIdQuery, Tenant> getTenant,
             IQueryHandler<GetTenantsQuery, IEnumerable<Tenant>> getTenants)
@@ -29,7 +33,9 @@ namespace Proto.WebApi.Controllers
         {
             var query = new GetTenantsQuery {PageIndex = 1, PageSize = 10};
 
-            if (getTenants != null) return getTenants.Handle(query);
+            if (getTenants != null) 
+                return getTenants.Handle(query);
+
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
@@ -39,7 +45,9 @@ namespace Proto.WebApi.Controllers
         {
             var query = new GetTenantByIdQuery {TenatId = id};
 
-            if (getTenants != null) return getTenant.Handle(query);
+            if (getTenants != null) 
+                return getTenant.Handle(query);
+
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }   
 
