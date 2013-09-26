@@ -1,33 +1,47 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Net;
 using System.Web.Http;
+using Proto.Domain.Queries.Tenants;
 using Proto.Domain.QueryHandlers;
+using Proto.Model.Entities;
 
 namespace Proto.WebApi.Controllers
 {
     [RoutePrefix("api/tenants")]
     public class TenantController : ApiController
     {
+        IQueryHandler<GetTenantByIdQuery, Tenant> getTenant;
+        IQueryHandler<GetTenantsQuery, IEnumerable<Tenant>> getTenants;
 
-        public TenantController(IQueryHandler<FindUsersBySearchTextQuery, IQueryable<UserInfo>> findUsers,
-        IQueryHandler<GetUsersByRolesQuery, IEnumerable<User>> getUsers,
-        IQueryHandler<GetHighUsageUsersQuery, IEnumerable<UserInfo>> getHighUsage)
+        public TenantController(
+            IQueryHandler<GetTenantByIdQuery, Tenant> getTenant,
+            IQueryHandler<GetTenantsQuery, IEnumerable<Tenant>> getTenants)
         {
-            
+            this.getTenant = getTenant;
+            this.getTenants = getTenants;
         }
 
         // GET api/<controller>
         [HttpGet(RouteName = "GetTenant")]
-        public IEnumerable<string> Get()
+        public IEnumerable<Tenant> Get()
         {
-            return new[] { "value1", "value2" };
+            var query = new GetTenantsQuery {PageIndex = 1, PageSize = 10};
+
+            if (getTenants != null) return getTenants.Handle(query);
+            throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
         // GET api/<controller>/5
-        [HttpGet("{id:int}", RouteName = "GetTenantById")] 
-        public string Get(int id)
+        [HttpGet("{id:int}", RouteName = "GetTenantById")]
+        public Tenant Get(int id)
         {
-            return "value";
-        }
+            var query = new GetTenantByIdQuery {TenatId = id};
+
+            if (getTenants != null) return getTenant.Handle(query);
+            throw new HttpResponseException(HttpStatusCode.NotFound);
+        }   
 
         // POST api/<controller>
         public void Post([FromBody]string value)
