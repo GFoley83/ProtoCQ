@@ -1,44 +1,60 @@
 ﻿using System;
 using System.Reflection;
-using System.Web.Mvc;
-using SimpleInjector;
-using SimpleInjector.Extensions;
-using SimpleInjector.Integration.Web.Mvc;
+using System.Web.Http;
+using Proto.Data;
 using Proto.Domain.QueryHandlers;
+using SimpleInjector;
+using SimpleInjector.Integration.WebApi;
 
 namespace Proto.WebApi.CompositionRoot
 {
     public static class Bootstrapper
     {
-        private static Container container;
+        private static Container _container;
 
         public static object GetInstance(Type serviceType)
         {
-            return container.GetInstance(serviceType);
+            return _container.GetInstance(serviceType);
         }
 
         public static T GetInstance<T>() where T : class
         {
-            return container.GetInstance<T>();
+            return _container.GetInstance<T>();
         }
 
-        public static void Bootstrap()
+        public static void Bootstrap(HttpConfiguration config)
         {
-            container = new Container();
+            _container = new Container();
 
-            DomainBootstrapper.Bootstrap(container);
+            var assemblies = new[]
+                             {
+                                 typeof(IQueryHandler<,>).Assembly,
+                                 typeof(IClientManagementContext).Assembly
+                             };
+
+            _container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
+
+            _container.Register<ClientManagementContext>(Lifestyle.Scoped);
+
+            _container.Register(typeof(IQueryHandler<,>), assemblies);
+
+            // This is an extension method from the integration package.
+            _container.RegisterWebApiControllers(config, Assembly.GetExecutingAssembly());
 
             RegisterWcfSpecificDependencies();
 
-            container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 
-            DependencyResolver.SetResolver(
-                new SimpleInjectorDependencyResolver(container));
+            //            DependencyResolver.SetResolver(
+            //                new SimpleInjectorDependencyResolver(container));
 
-            container.Verify();
+
+            //GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(_container);
+
+            config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(_container);
+
+
+            _container.Verify();
         }
-
-
 
         private static void RegisterWcfSpecificDependencies()
         {
@@ -60,7 +76,9 @@ namespace Proto.WebApi.CompositionRoot
             //container.RegisterManyForOpenGeneric(typeof(ICommandHandler<>), Assembly.GetExecutingAssembly());
             //container.RegisterDecorator(typeof(ICommandHandler<>), typeof(ValidationCommandHandlerDecorator<>));
 
-            container.RegisterManyForOpenGeneric(typeof(IQueryHandler<,>), Assembly.GetExecutingAssembly());
+            //container.RegisterManyForOpenGeneric(typeof(IQueryHandler<,>), Assembly.GetExecutingAssembly());
+
+            container.Register(typeof(IQueryHandler<,>), new[] {typeof(IQueryHandler<,>).Assembly});
         }
     }
 }

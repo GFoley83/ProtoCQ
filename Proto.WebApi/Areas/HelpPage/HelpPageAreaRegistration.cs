@@ -1,5 +1,6 @@
 using System.Web.Http;
 using System.Web.Mvc;
+using Proto.WebApi.Areas.HelpPage.App_Start;
 
 namespace Proto.WebApi.Areas.HelpPage
 {

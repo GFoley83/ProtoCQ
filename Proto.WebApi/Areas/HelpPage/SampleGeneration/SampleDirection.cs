@@ -1,4 +1,4 @@
-namespace Proto.WebApi.Areas.HelpPage
+namespace Proto.WebApi.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

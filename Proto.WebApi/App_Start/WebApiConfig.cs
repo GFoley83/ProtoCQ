@@ -10,7 +10,7 @@ namespace Proto.WebApi
             // Web API configuration and services
 
             // Web API routes
-            config.MapHttpAttributeRoutes();
+            //config.MapHttpAttributeRoutes();
 
 #if DEBUG
             // this removes the XML return type option, comment out if you want the client
@@ -19,11 +19,11 @@ namespace Proto.WebApi
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 #endif
 
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: new { id = RouteParameter.Optional }
-            //);
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
         }
     }
 }

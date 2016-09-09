@@ -6,51 +6,50 @@ using System.Web.Http;
 using Proto.Domain.Queries.Tenants;
 using Proto.Domain.QueryHandlers;
 using Proto.Model.Entities;
+using System.Web.Routing;
 
 namespace Proto.WebApi.Controllers
 {
     [RoutePrefix("api/tenant")]
     public class TenantController : ApiController
     {
-        IQueryHandler<GetTenantByIdQuery, Tenant> getTenant;
-        IQueryHandler<GetTenantsQuery, IEnumerable<Tenant>> getTenants;
+        readonly IQueryHandler<GetTenantByIdQuery, Tenant> _getTenant;
+        readonly IQueryHandler<GetTenantsQuery, IEnumerable<Tenant>> _getTenants;
 
         public TenantController(
             IQueryHandler<GetTenantByIdQuery, Tenant> getTenant,
             IQueryHandler<GetTenantsQuery, IEnumerable<Tenant>> getTenants)
         {
-            this.getTenant = getTenant;
-            this.getTenants = getTenants;
+            _getTenant = getTenant;
+            _getTenants = getTenants;
         }
 
         // GET api/<controller>
-        [HttpGet(RouteName = "GetTenant")]
-        public IEnumerable<Tenant> Get()
+        [HttpGet]
+//        [Route("Get")]
+        public IHttpActionResult Get()
         {
             var query = new GetTenantsQuery {PageIndex = 1, PageSize = 10};
 
-            if (getTenants != null) 
-                return getTenants.Handle(query);
+            if (_getTenants != null) 
+                return Ok(_getTenants.Handle(query));
 
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
         // GET api/<controller>/5
-        [HttpGet("{id:int}", RouteName = "GetTenantById")]
+        //[HttpGet("{id:int}", RouteName = "GetTenantById")]
+        [HttpGet]
+//        [Route("GetTenantById")]
         public Tenant Get(int id)
         {
             var query = new GetTenantByIdQuery {TenatId = id};
 
-            if (getTenants != null) 
-                return getTenant.Handle(query);
+            if (_getTenants != null) 
+                return _getTenant.Handle(query);
 
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }   
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)

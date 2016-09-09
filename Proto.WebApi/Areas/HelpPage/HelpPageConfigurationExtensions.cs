@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Proto.WebApi.Areas.HelpPage.Models;
+using Proto.WebApi.Areas.HelpPage.SampleGeneration;
 
 namespace Proto.WebApi.Areas.HelpPage
 {
